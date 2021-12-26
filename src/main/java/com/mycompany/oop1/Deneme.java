@@ -44,8 +44,7 @@ public class Deneme {
     EmployeeComposite employeeComposite = new EmployeeComposite(director1);
     employeeComposite.getEmployeeList();*/
 
-    EmployeeComposite emp = EmployeeComposite.processTxtFile()
-;     
+    EmployeeComposite emp = EmployeeComposite.processTxtFile();     
   emp.getEmployeeList();
 }
 }
