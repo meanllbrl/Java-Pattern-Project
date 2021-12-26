@@ -5,6 +5,7 @@
 package com.mycompany.oop1;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -20,7 +21,7 @@ import com.mycompany.oop1.classes.Officer;
 public class Deneme {
   public static void main(String[] args) {
 
-    Employee director1 = new Director("Mehmet Akduman", 15000);
+    /*Employee director1 = new Director("Mehmet Akduman", 15000);
     Employee director2 = new Director("Mehmet Akduman2", 25000);
     Employee director3 = new Director("Mehmet Akduman3", 35000);
 
@@ -41,6 +42,10 @@ public class Deneme {
     director2.add(new Officer("nameSurname7", 1300));
     
     EmployeeComposite employeeComposite = new EmployeeComposite(director1);
-    employeeComposite.getEmployeeList();
-     }
+    employeeComposite.getEmployeeList();*/
+
+    EmployeeComposite emp = EmployeeComposite.processTxtFile()
+;     
+  emp.getEmployeeList();
+}
 }

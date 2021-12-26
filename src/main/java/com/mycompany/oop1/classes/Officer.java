@@ -5,6 +5,7 @@ public class Officer extends Employee {
     private int salary;
 
     public Officer(String nameSurname, int salary) {
+        super(nameSurname, salary);
         this.nameSurname = nameSurname;
         this.salary = salary;
     }
@@ -22,13 +23,23 @@ public class Officer extends Employee {
     }
 
     public void displayEmployeeInfo() {
-     
-        System.out.println("M " + getOfficerName() + " " + getCost());
+        System.out.print("\t");
+        System.out.print("M " + nameSurname + " " + getCost() + "\n");
     }
 
     @Override
     public String toString() {
         return "Officer [ " + super.toString() + "]";
+    }
+
+    @Override
+    public String getName() {
+        return super.getName();
+    }
+
+    @Override
+    public String getNameSurname() {
+        return super.getNameSurname();
     }
 
 }

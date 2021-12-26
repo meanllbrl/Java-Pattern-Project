@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-public class LinkedList<T> implements List<T> {
+public class CustomLinkedList<T> implements List<T> {
     // inner class
     class Node<T> {
 
@@ -43,14 +43,14 @@ public class LinkedList<T> implements List<T> {
     private Node<T> tail = null;
     private int currentSize;
 
-    public LinkedList() {
+    public CustomLinkedList() {
         head = null;
         tail = null;
         currentSize = 0;
     }
 
-    public void addNode(Object data) {
-        Node newNode = new Node(data);
+    public void addNode(T data) {
+        Node<T> newNode = new Node<T>(data);
         // listenin boş olup olmadığını kontrol etme
         if (head == null) {
             // eğer boş ise head ve tail newNode' a point edecek
@@ -72,7 +72,7 @@ public class LinkedList<T> implements List<T> {
     public void display() {
         // current düğümü ilk olarak head'i point edecek
 
-        Node current = head;
+        Node<T> current = head;
 
         if (head == null) {
             System.out.println("Liste boş.");
@@ -110,19 +110,15 @@ public class LinkedList<T> implements List<T> {
         return null;
     }
 
-    @Override
-    public <T> T[] toArray(T[] a) {
-        // TODO Auto-generated method stub
-        return null;
-    }
+
 
     @Override
     public boolean add(T e) {
         if (isEmpty()) {
-            head = new Node(e, null);
+            head = new Node<T>(e, null);
             tail = head;
         } else {
-            tail.setNext(new Node(e, null));
+            tail.setNext(new Node<T>(e, null));
             tail = tail.getNext();
         }
         currentSize++;
@@ -260,6 +256,12 @@ public class LinkedList<T> implements List<T> {
     public int size() {
         // TODO Auto-generated method stub
         return currentSize;
+    }
+
+    @Override
+    public <T> T[] toArray(T[] arg0) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }
