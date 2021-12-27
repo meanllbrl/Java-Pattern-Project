@@ -6,28 +6,26 @@ import java.util.List;
 
 public class Director extends Employee {
     private ArrayList<Employee> employees = new ArrayList<Employee>();;
-    private String nameSurname;
-    private int salary;
-
-    private static int depth2 = 0;
 
     public Director(String nameSurname, int salary) {
         super(nameSurname, salary);
-        this.nameSurname = nameSurname;
-        this.salary = salary;
 
-    }
-
-    public String getDirectorName() {
-        return nameSurname;
     }
 
     public int getSalary() {
-        return salary;
+        int _total = 0;
+        // * altında çalışan işcilerin maaşlarının toplamı alınıyor
+        for (Employee element : employees) {
+            _total += element.getCost();
+        }
+        // * işcilerin maaşlarının toplamına kendi maaşı da ekleniyor.
+        _total += super.getSalary();
+        return _total;
+        // return salary;
     }
 
     public List<Employee> getEmployee() {
-        return this.employees;
+        return employees;
     }
 
     public int getCost() {
@@ -37,7 +35,7 @@ public class Director extends Employee {
             _total += element.getCost();
         }
         // * işcilerin maaşlarının toplamına kendi maaşı da ekleniyor.
-        _total += salary;
+        _total += super.getSalary();
         return _total;
     }
 
@@ -67,7 +65,7 @@ public class Director extends Employee {
                 Director el2 = (Director) element;
                 if (el2.getChildren().size() > 0) {
 
-                    recursiveMetod(el2.getChildren(), depth+1);
+                    recursiveMetod(el2.getChildren(), depth + 1);
                 }
             }
         }
@@ -81,14 +79,12 @@ public class Director extends Employee {
         /*
          * System.out.println("D " + getNameSurname() + " " + getCost());
          * 
-         * Iterator directorIterator = employees.iterator();
-         * int depth = 0;
+         * Iterator directorIterator = employees.iterator(); int depth = 0;
          * 
          * while (directorIterator.hasNext()) {
          * 
          * Employee employeeInfo = (Employee) directorIterator.next();
-         * System.out.print("\t");
-         * employeeInfo.displayEmployeeInfo();
+         * System.out.print("\t"); employeeInfo.displayEmployeeInfo();
          * 
          * }
          */
@@ -104,14 +100,5 @@ public class Director extends Employee {
         return "Director [employee=" + employees + "]";
     }
 
-    @Override
-    public String getName() {
-        return super.getName();
-    }
-
-    @Override
-    public String getNameSurname() {
-        return super.getNameSurname();
-    }
 
 }

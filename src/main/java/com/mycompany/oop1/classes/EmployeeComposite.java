@@ -1,6 +1,8 @@
 package com.mycompany.oop1.classes;
 
-import com.mycompany.oop1.Iterator.TreeNode;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 public class EmployeeComposite {
 
@@ -19,51 +21,64 @@ public class EmployeeComposite {
     }
 
     public static EmployeeComposite processTxtFile() {
-        //ana director 
+        // ana director
         Director rootDirector = null;
-        //örnek girdi
-        String txtList = "D,Mustafa Turksever,5000,Root/D,Halil Sengonca,4000,Mustafa/D,Bahar Karaoglan,3500,Mustafa/D,Ugur Guclu,2000,Mustafa/D,Sedat Tunc,2500,Halil/D,Oguz Demir,3000,Halil/M,Emre Kosar,700,Ugur/D,Ahmet Egeli,700,Mustafa/M,Bora Kuzey,1000,Sedat/M,Onder Bati,500,Oguz/M,Erdem Altin,500,Oguz/M,Mehmet Bilir,600,Mustafa";
-        //girdi texte dönüşüyoe
+        // örnek girdi
+        String txtList = ""; // girdi texte dönüşüyoe
+        try {
+            File myObj = new File("D:/Dersler/Nesneye dayalı/Projects/oop1/src/main/java/com/mycompany/oop1/girdi.txt");
+            Scanner myReader = new Scanner(myObj);
+            while (myReader.hasNextLine()) {
+                String data = myReader.nextLine();
+                txtList += data + "/";
+            }
+
+            myReader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Böyle bir dosya bulunamadı");
+            // e.printStackTrace();
+        }
         String[] list = txtList.split("/");
         // root eklenyor
         String[] theRoot = null;
-        //listedeki her eleman için arama yapılıyor
+        // listedeki her eleman için arama yapılıyor
         for (String eleman : list) {
             String[] parameters = eleman.split(",");
-            //composite design patter'ın kökü belirleniyor
+            // composite design patter'ın kökü belirleniyor
             if (parameters[3].trim().equalsIgnoreCase("root")) {
                 Director _director = new Director(parameters[1], Integer.parseInt(parameters[2]));
                 rootDirector = _director;
-                theRoot = parameters;
+                theRoot = parameters; // örnek theRoot = ["D","NameSurname","Salary","RootName"]
             }
-            //eğer köke sahipse children'ların durumu kontrol ediliyor
+            // eğer köke sahipse children'ların durumu kontrol ediliyor
             else {
                 if (theRoot == null) {
                     theRoot = parameters;
                 }
-                //eğer altında çalışan kişi bulunursa director'a ait olan employeelist'e ekleniyor
-                    if (parameters[3].trim().equalsIgnoreCase(theRoot[1].split(" ")[0].trim())) {
-                    //director ise director nesnesi ekleniyor
+                // eğer altında çalışan kişi bulunursa director'a ait olan employeelist'e
+                // ekleniyor
+                if (parameters[3].trim().equalsIgnoreCase(theRoot[1].split(" ")[0].trim())) {
+                    // director ise director nesnesi ekleniyor
                     if (parameters[0].trim().equalsIgnoreCase("d")) {
                         Director _director = new Director(parameters[1], Integer.parseInt(parameters[2]));
                         rootDirector.add(_director);
 
                     } else {
-                        //officersa officer nesnesi ekleniyor
+                        // officersa officer nesnesi ekleniyor
                         Officer _officer = new Officer(parameters[1], Integer.parseInt(parameters[2]));
                         rootDirector.add(_officer);
                     }
-                    //kök ve üst seviye çocuklar elde edildikten sonra döngü kırılıyor
-                }  else {
+                    // kök ve üst seviye çocuklar elde edildikten sonra döngü kırılıyor
+                } else {
                     break;
                 }
             }
         }
-        //root çocuk uzunluğu
+        // root çocuk uzunluğu
         int size = rootDirector.getChildren().size();
-        //her rootun altındakiler inceleniyor
+        // her rootun altındakiler inceleniyor
         for (int i = 0; i < size; i++) {
-            //Çocuğun Director olma durumu kontrol ediliyor
+            // Çocuğun Director olma durumu kontrol ediliyor
             if (rootDirector.getChildren().get(i).getClass() == Director.class) {
                 Director element = (Director) rootDirector.getChildren().get(i);
                 for (String parameter : list) {

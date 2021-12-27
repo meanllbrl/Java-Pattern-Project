@@ -6,16 +6,6 @@ public class Officer extends Employee {
 
     public Officer(String nameSurname, int salary) {
         super(nameSurname, salary);
-        this.nameSurname = nameSurname;
-        this.salary = salary;
-    }
-
-    public String getOfficerName() {
-        return nameSurname;
-    }
-
-    public int getOfficerSalary() {
-        return salary;
     }
 
     public int getCost() {
@@ -32,14 +22,6 @@ public class Officer extends Employee {
         return "Officer [ " + super.toString() + "]";
     }
 
-    @Override
-    public String getName() {
-        return super.getName();
-    }
-
-    @Override
-    public String getNameSurname() {
-        return super.getNameSurname();
-    }
+   
 
 }
