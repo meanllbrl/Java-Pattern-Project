@@ -74,6 +74,13 @@ public class EmployeeComposite {
                 }
             }
         }
+        // rootun altındaki childrenları almak için getChildren isimli recursive metod
+        // oluşturuldu.
+        getChildren(rootDirector, list);
+        return new EmployeeComposite(rootDirector);
+    }
+
+    private static void getChildren(Director rootDirector, String[] list) {
         // root çocuk uzunluğu
         int size = rootDirector.getChildren().size();
         // her rootun altındakiler inceleniyor
@@ -85,12 +92,16 @@ public class EmployeeComposite {
                     String[] parameters = parameter.split(",");
                     if (element.getName().equals(parameters[3].trim())) {
                         if (parameters[0].toLowerCase().equalsIgnoreCase("d")) {
-
-                            element.add(new Director(parameters[1], Integer.parseInt(parameters[2])));
+                            Director director = new Director(parameters[1], Integer.parseInt(parameters[2]));
+                            element.add(director);
+                            if (!element.getChildren().isEmpty()) {// directorun çocukları var yok mu kontrol ediliyor
+                                getChildren(element, list);// eğer varsa directoru root yapıp onun çocuklarını aramasını
+                                                           // gerçekleştiriyor
+                            }
 
                         } else {
-
-                            element.add(new Officer(parameters[1], Integer.parseInt(parameters[2])));
+                            Officer officer = new Officer(parameters[1], Integer.parseInt(parameters[2]));
+                            element.add(officer);
 
                         }
 
@@ -99,7 +110,6 @@ public class EmployeeComposite {
             }
 
         }
-        return new EmployeeComposite(rootDirector);
     }
 
 }

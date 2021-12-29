@@ -12,17 +12,6 @@ public class Director extends Employee {
 
     }
 
-    public int getSalary() {
-        int _total = 0;
-        // * altında çalışan işcilerin maaşlarının toplamı alınıyor
-        for (Employee element : employees) {
-            _total += element.getCost();
-        }
-        // * işcilerin maaşlarının toplamına kendi maaşı da ekleniyor.
-        _total += super.getSalary();
-        return _total;
-        // return salary;
-    }
 
     public List<Employee> getEmployee() {
         return employees;
@@ -35,7 +24,7 @@ public class Director extends Employee {
             _total += element.getCost();
         }
         // * işcilerin maaşlarının toplamına kendi maaşı da ekleniyor.
-        _total += super.getSalary();
+        _total += super.getCost();
         return _total;
     }
 
@@ -56,11 +45,12 @@ public class Director extends Employee {
     }
 
     private void recursiveMetod(ArrayList<Employee> list, int depth) {
+
         for (Employee element : list) {
             for (int i = 0; i < depth; i++) {
                 System.out.print("\t");
             }
-            System.out.print(element.getNameSurname() + "\n");
+            System.out.print((element.getClass() == Director.class ? "D " : "M " )+ element.getNameSurname() + " " + element.getCost() + "\n");
             if (element.getClass() == Director.class) {
                 Director el2 = (Director) element;
                 if (el2.getChildren().size() > 0) {
@@ -99,6 +89,5 @@ public class Director extends Employee {
         }
         return "Director [employee=" + employees + "]";
     }
-
 
 }

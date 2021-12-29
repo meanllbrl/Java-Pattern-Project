@@ -18,10 +18,6 @@ public abstract class Employee {
         return this.nameSurname.split(" ")[0].trim();
     }
 
-    public int getSalary() {
-        return this.salary;
-    }
-
     public int getCost() {
         return this.salary;
     }
