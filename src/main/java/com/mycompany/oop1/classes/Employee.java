@@ -1,6 +1,5 @@
 package com.mycompany.oop1.classes;
 
-
 public abstract class Employee {
     private String nameSurname;
     private int salary;
@@ -9,7 +8,7 @@ public abstract class Employee {
         this.nameSurname = nameSurname;
         this.salary = salary;
     }
-  
+
     public String getNameSurname() {
         return this.nameSurname;
     }
@@ -19,6 +18,10 @@ public abstract class Employee {
     }
 
     public int getCost() {
+        return this.salary;
+    }
+
+    public int getSalary() {
         return this.salary;
     }
 
@@ -36,10 +39,12 @@ public abstract class Employee {
         throw new UnsupportedOperationException();
 
     }
-    public void displayEmployeeInfo() {
+
+    public void displayEmployeeInfo(boolean isCost) {
         throw new UnsupportedOperationException();
 
     }
+
     @Override
     public String toString() {
         return "[nameSurname=" + nameSurname + ", salary=" + salary + "]";

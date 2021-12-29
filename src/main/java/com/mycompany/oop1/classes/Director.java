@@ -1,7 +1,6 @@
 package com.mycompany.oop1.classes;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class Director extends Employee {
@@ -9,9 +8,7 @@ public class Director extends Employee {
 
     public Director(String nameSurname, int salary) {
         super(nameSurname, salary);
-
     }
-
 
     public List<Employee> getEmployee() {
         return employees;
@@ -44,27 +41,40 @@ public class Director extends Employee {
         return employees;
     }
 
-    private void recursiveMetod(ArrayList<Employee> list, int depth) {
+    public boolean contains(Employee emp) {
+        for (Employee employee : employees) {
+            if (employee.getNameSurname().trim().equalsIgnoreCase(emp.getNameSurname().trim())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void recursiveMetod(ArrayList<Employee> list, int depth, boolean isCost) {
 
         for (Employee element : list) {
             for (int i = 0; i < depth; i++) {
                 System.out.print("\t");
             }
-            System.out.print((element.getClass() == Director.class ? "D " : "M " )+ element.getNameSurname() + " " + element.getCost() + "\n");
+            System.out.print("D " + element.getNameSurname() + " "
+                    + ((isCost && element.getClass() == Director.class) ? element.getCost() : element.getSalary()) + "\n");
             if (element.getClass() == Director.class) {
                 Director el2 = (Director) element;
                 if (el2.getChildren().size() > 0) {
 
-                    recursiveMetod(el2.getChildren(), depth + 1);
+                    recursiveMetod(el2.getChildren(), depth + 1, isCost);
                 }
             }
         }
     }
 
-    public void displayEmployeeInfo() {
+    public void displayEmployeeInfo(boolean isCost) {
         int depth = 1;
-        System.out.println("D " + getNameSurname() + " " + getCost());
-        recursiveMetod(employees, depth);
+
+        System.out.println(isCost ? "\nToplam maaşlar\n" : "\nHam maaşlar\n");
+
+        System.out.println("D " + getNameSurname() + " " + (isCost ? getCost() : getSalary()));
+        recursiveMetod(employees, depth,isCost);
 
         /*
          * System.out.println("D " + getNameSurname() + " " + getCost());
@@ -79,7 +89,7 @@ public class Director extends Employee {
          * }
          */
     }
-
+/*
     @Override
     public String toString() {
         Iterator directorIterator = employees.iterator();
@@ -88,6 +98,6 @@ public class Director extends Employee {
             employeeInfo.displayEmployeeInfo();
         }
         return "Director [employee=" + employees + "]";
-    }
+    }*/
 
 }

@@ -4,10 +4,11 @@ public class Officer extends Employee {
     public Officer(String nameSurname, int salary) {
         super(nameSurname, salary);
     }
-
-    public void displayEmployeeInfo() {
+    
+    
+    public void displayEmployeeInfo(boolean isCost) {
         System.out.print("\t");
-        System.out.print("M " + getNameSurname() + " " + getCost() + "\n");
+        System.out.print("M " + getNameSurname() + " " + getSalary() + "\n");
     }
 
     @Override

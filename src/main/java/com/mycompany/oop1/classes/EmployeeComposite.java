@@ -13,7 +13,7 @@ public class EmployeeComposite {
     }
 
     public void getEmployeeList() {
-        employeeList.displayEmployeeInfo();
+        employeeList.displayEmployeeInfo(false);
     }
 
     public Employee getEmployee() {
@@ -26,7 +26,7 @@ public class EmployeeComposite {
         // örnek girdi
         String txtList = ""; // girdi texte dönüşüyoe
         try {
-            File myObj = new File("D:/Dersler/Nesneye dayalı/Projects/oop1/src/main/java/com/mycompany/oop1/girdi.txt");
+            File myObj = new File("../oop1/src/main/java/com/mycompany/oop1/girdi.txt");
             Scanner myReader = new Scanner(myObj);
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
@@ -88,6 +88,7 @@ public class EmployeeComposite {
             // Çocuğun Director olma durumu kontrol ediliyor
             if (rootDirector.getChildren().get(i).getClass() == Director.class) {
                 Director element = (Director) rootDirector.getChildren().get(i);
+
                 for (String parameter : list) {
                     String[] parameters = parameter.split(",");
                     if (element.getName().equals(parameters[3].trim())) {
@@ -101,7 +102,14 @@ public class EmployeeComposite {
 
                         } else {
                             Officer officer = new Officer(parameters[1], Integer.parseInt(parameters[2]));
-                            element.add(officer);
+                            if (element.getChildren().size() == 0) {
+                                element.add(officer);
+                            } else {
+                                if (!element.contains(officer)) {
+                                    element.add(officer);
+                                }
+
+                            }
 
                         }
 
@@ -110,6 +118,12 @@ public class EmployeeComposite {
             }
 
         }
+    }
+
+
+    public void getCost() {
+
+        employeeList.displayEmployeeInfo(true);
     }
 
 }

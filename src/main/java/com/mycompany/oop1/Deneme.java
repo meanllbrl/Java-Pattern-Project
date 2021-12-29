@@ -41,5 +41,7 @@ public class Deneme {
     EmployeeComposite emp = EmployeeComposite.processTxtFile();
 
     emp.getEmployeeList();
+    emp.getCost();
+    
   }
 }

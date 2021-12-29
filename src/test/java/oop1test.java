@@ -12,7 +12,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import com.mycompany.oop1.classes.Director;
 import com.mycompany.oop1.classes.Employee;
-import com.mycompany.oop1.classes.EmployeeComposite;
 import com.mycompany.oop1.classes.Officer;
 
 /**
