@@ -1,16 +1,17 @@
 package com.mycompany.oop1.Iterator;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
-
-public class CustomLinkedList<T> implements List<T> {
+public class CustomLinkedList<T> implements LinkedList<T> {
     // inner class
     class Node<T> {
 
         private T data;// Diğer projelerle uyum sağlaması açısından T kullanıldı
         private Node<T> next;
+
+        // düğüm yapısı oluşturuldu
+        public Node(T data) {
+            this.data = data;
+            this.next = null;
+        }
 
         public Node(T data, Node<T> next) {
             this.data = data;
@@ -33,12 +34,9 @@ public class CustomLinkedList<T> implements List<T> {
             next = newNext;
         }
 
-        public Node(T data) {
-            this.data = data;
-            this.next = null;
-        }
     }
 
+    // oluşturulan düğüm yapısını linked listede kullanımı
     private Node<T> head = null;
     private Node<T> tail = null;
     private int currentSize;
@@ -63,29 +61,6 @@ public class CustomLinkedList<T> implements List<T> {
             tail = newNode;
         }
     }
-    /*
-     * public int size() { int count = 0; Node currNode = head; while (currNode !=
-     * null) { count++; currNode = currNode.next; } return count; }
-     */
-
-    // display() metodu ile düğümde yer alan tüm dataları yazdırma işlemi yapılacak
-    public void display() {
-        // current düğümü ilk olarak head'i point edecek
-
-        Node<T> current = head;
-
-        if (head == null) {
-            System.out.println("Liste boş.");
-            return;
-        }
-        System.out.println("Linked List'in düğümleri : ");
-        while (current != null) {
-            // Prints each node by incrementing pointer
-            System.out.print(current.data + " ");
-            current = current.next;
-        }
-        System.out.println();
-    }
 
     @Override
     public boolean isEmpty() {
@@ -93,76 +68,23 @@ public class CustomLinkedList<T> implements List<T> {
     }
 
     @Override
-    public boolean contains(Object o) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public Iterator<T> iterator() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public Object[] toArray() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-
-
-    @Override
     public boolean add(T e) {
-        if (isEmpty()) {
+        if (isEmpty()) {// eğer linked liste boş ise önce head düğümü oluşturulması gerekli
             head = new Node<T>(e, null);
-            tail = head;
+            tail = head;// oluşturulan bu head tüğümü kuyruğa eklenmeli
         } else {
+            // eğer ki boş değilse yeni eklenecek düğüm ilgili son kuyruğun bir sonraki
+            // düğümüne eklenir
             tail.setNext(new Node<T>(e, null));
             tail = tail.getNext();
         }
-        currentSize++;
+        currentSize++;// yeni bir veri eklendiği için listenin eleman sayısı bir artırılır
         return true;
     }
 
     @Override
-    public boolean remove(Object o) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public boolean containsAll(Collection<?> c) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public boolean addAll(Collection<? extends T> c) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public boolean addAll(int index, Collection<? extends T> c) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public boolean removeAll(Collection<?> c) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public boolean retainAll(Collection<?> c) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public void clear() {
+    public void clear() {// adından anlaşılacağı üzere listedeki tüm head tail gibi düğümleri bağlarını
+                         // (koparmak) null a bağlıyor dolayısıyla liste tamamen temizlenmiş oluyor.
         head = null;
         tail = null;
         currentSize = 0;
@@ -172,10 +94,15 @@ public class CustomLinkedList<T> implements List<T> {
     @Override
     public T get(int index) {
         if (index < 0 || index >= size()) {
+            // eğer ki index 0 dan küçük veya liste boyutuna büyük eşit olursa (ki zaten bu
+            // dizi kavramına ters bir durum) bu durumda bir exception fırlatılır
             throw new IndexOutOfBoundsException();
         }
-       
+
         if (index < size() - 1) {
+            // index listenin sonundaki elemanı almamızı istiyorsa current düğümümüz son
+            // elemana kadar next yapılır ve sona varıldığında indexin istediği ilgili
+            // datayı döndürür.
             Node<T> current = head;
             for (int i = 0; i < index; i++) {
                 current = current.getNext();
@@ -183,12 +110,6 @@ public class CustomLinkedList<T> implements List<T> {
             return current.getData();
         }
         return tail.getData();
-    }
-
-    @Override
-    public T set(int index, T element) {
-        // TODO Auto-generated method stub
-        return null;
     }
 
     @Override
@@ -208,7 +129,6 @@ public class CustomLinkedList<T> implements List<T> {
             for (int i = 0; i < index - 1; i++) {
                 current = current.getNext();
             }
-            // current is now the node before the index where we want to add
             current.setNext(new Node<T>(element, current.getNext()));
 
         }
@@ -217,51 +137,9 @@ public class CustomLinkedList<T> implements List<T> {
     }
 
     @Override
-    public T remove(int index) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public int indexOf(Object o) {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-
-    @Override
-    public int lastIndexOf(Object o) {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-
-    @Override
-    public ListIterator<T> listIterator() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public ListIterator<T> listIterator(int index) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public List<T> subList(int fromIndex, int toIndex) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
     public int size() {
-        // TODO Auto-generated method stub
+        // liste boyutunu veren metod
         return currentSize;
-    }
-
-    @Override
-    public <T> T[] toArray(T[] arg0) {
-        // TODO Auto-generated method stub
-        return null;
     }
 
 }

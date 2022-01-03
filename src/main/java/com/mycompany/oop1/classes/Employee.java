@@ -45,9 +45,4 @@ public abstract class Employee {
 
     }
 
-    @Override
-    public String toString() {
-        return "[nameSurname=" + nameSurname + ", salary=" + salary + "]";
-    }
-
 }
