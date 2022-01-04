@@ -6,6 +6,9 @@ package com.mycompany.oop1;
 
 
 import com.mycompany.oop1.classes.EmployeeComposite;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 /**
  *
@@ -14,31 +17,21 @@ import com.mycompany.oop1.classes.EmployeeComposite;
 public class Deneme {
   public static void main(String[] args) {
 
-    /*
-     * Employee director1 = new Director("Mehmet Akduman", 15000); Employee
-     * director2 = new Director("Mehmet Akduman2", 25000); Employee director3 = new
-     * Director("Mehmet Akduman3", 35000);
-     * 
-     * Employee director4 = new Director("Mehmet Akduman4", 45000);
-     * 
-     * director1.add(director4);
-     * 
-     * director1.add(new Officer("nameSurname", 1000)); director1.add(new
-     * Officer("nameSurname2", 1500)); director1.add(director3);
-     * 
-     * director3.add(new Officer("nameSurname4", 1250)); director3.add(new
-     * Officer("nameSurname5", 1300));
-     * 
-     * director1.add(director2);
-     * 
-     * director2.add(new Officer("nameSurname6", 1250)); director2.add(new
-     * Officer("nameSurname7", 1300));
-     * 
-     * EmployeeComposite employeeComposite = new EmployeeComposite(director1);
-     * employeeComposite.getEmployeeList();
-     */
-    
-    EmployeeComposite emp = EmployeeComposite.processTxtFile();
+    String txtList = ""; // girdi texte dönüşüyoe
+        try {
+            File myObj = new File("../oop1/src/main/java/com/mycompany/oop1/girdi.txt");
+            Scanner myReader = new Scanner(myObj);
+            while (myReader.hasNextLine()) {
+                String data = myReader.nextLine();
+                txtList += data + "/";
+            }
+
+            myReader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Böyle bir dosya bulunamadı");
+            // e.printStackTrace();
+        }
+    EmployeeComposite emp = EmployeeComposite.processTxtFile(txtList);
 
     emp.getEmployeeList();
     emp.getCost();

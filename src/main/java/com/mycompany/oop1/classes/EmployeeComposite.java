@@ -1,9 +1,5 @@
 package com.mycompany.oop1.classes;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
-
 public class EmployeeComposite {
 
     Employee employeeList;
@@ -20,24 +16,11 @@ public class EmployeeComposite {
         return employeeList;
     }
 
-    public static EmployeeComposite processTxtFile() {
+    public static EmployeeComposite processTxtFile(String txtList) {
         // ana director
         Director rootDirector = null;
         // örnek girdi
-        String txtList = ""; // girdi texte dönüşüyoe
-        try {
-            File myObj = new File("../oop1/src/main/java/com/mycompany/oop1/girdi.txt");
-            Scanner myReader = new Scanner(myObj);
-            while (myReader.hasNextLine()) {
-                String data = myReader.nextLine();
-                txtList += data + "/";
-            }
-
-            myReader.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("Böyle bir dosya bulunamadı");
-            // e.printStackTrace();
-        }
+        
         String[] list = txtList.split("/");
         // root eklenyor
         String[] theRoot = null;
